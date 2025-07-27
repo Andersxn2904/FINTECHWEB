@@ -242,10 +242,8 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 20px;
+            padding: 24px;
             margin-bottom: 32px;
-            overflow: hidden;
-            position: relative;
         }
 
         .chart-title {
@@ -253,27 +251,20 @@
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 20px;
-            text-align: left;
         }
 
         .chart-container {
-            position: relative;
+            text-align: center;
             width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
             overflow: hidden;
-            border-radius: 6px;
-            background: var(--primary);
         }
 
         .chart-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
             border-radius: 6px;
+            max-width: 100%;
+            border: none;
+            width: 100%;
+            min-height: 400px;
         }
 
         .calculator-section {
@@ -453,12 +444,19 @@
             }
             
             .chart-wrapper {
-                padding: 16px;
-                margin-bottom: 24px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
             
             .chart-container {
-                padding-bottom: 62.5%; /* Slightly taller for tablet */
+                min-width: 600px;
+                overflow: visible;
+            }
+            
+            .chart-container iframe {
+                width: 600px;
+                height: 350px;
+                min-width: 600px;
             }
             
             .metrics-grid {
@@ -556,19 +554,29 @@
             }
             
             .chart-wrapper {
-                padding: 12px;
-                margin-bottom: 20px;
+                padding: 16px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
                 border-radius: 8px;
             }
             
             .chart-container {
-                padding-bottom: 70%; /* Taller for mobile portrait */
-                border-radius: 4px;
+                min-width: 500px;
+                padding-right: 20px;
+            }
+            
+            .chart-container iframe {
+                width: 500px;
+                height: 300px;
+                min-width: 500px;
+                border-radius: 6px;
             }
             
             .chart-title {
                 font-size: 14px;
-                margin-bottom: 12px;
+                margin-bottom: 16px;
+                text-align: left;
             }
             
             .calculator-section {
@@ -700,20 +708,30 @@
             }
             
             .chart-wrapper {
-                padding: 8px;
-                margin-bottom: 16px;
-                border-radius: 6px;
+                padding: 12px;
+                margin: 0 -12px;
+                border-radius: 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
             }
             
             .chart-container {
-                padding-bottom: 75%; /* Even taller for small screens */
-                border-radius: 4px;
+                min-width: 400px;
+                padding-right: 24px;
+                padding-left: 12px;
+            }
+            
+            .chart-container iframe {
+                width: 400px;
+                height: 250px;
+                min-width: 400px;
             }
             
             .chart-title {
-                font-size: 13px;
-                margin-bottom: 8px;
-                padding: 0 4px;
+                font-size: 14px;
+                margin-bottom: 12px;
+                text-align: left;
             }
             
             .calculator-section {
@@ -803,18 +821,20 @@
             }
             
             .chart-wrapper {
-                padding: 6px;
-                margin-bottom: 12px;
+                padding: 8px;
+                margin: 0 -8px;
             }
             
             .chart-container {
-                padding-bottom: 80%; /* Maximum height for tiny screens */
-                border-radius: 3px;
+                min-width: 320px;
+                padding-right: 16px;
+                padding-left: 8px;
             }
             
-            .chart-title {
-                font-size: 12px;
-                margin-bottom: 6px;
+            .chart-container iframe {
+                width: 320px;
+                height: 200px;
+                min-width: 320px;
             }
             
             .calculator-buttons {
@@ -1317,7 +1337,7 @@
                         <div class="chart-wrapper">
                             <h3 class="chart-title">Worldly Portfolio Performance</h3>
                             <div class="chart-container">
-                                <iframe seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRMPS_1VP8AoRwKmvsic4jbximolB17nZTgpd4q-nGDfD3uBZb8QxI-e5utOy1OHImfMBT0sx7x_gd8/pubchart?oid=1750708711&format=interactive"></iframe>
+                                <iframe width="100%" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRMPS_1VP8AoRwKmvsic4jbximolB17nZTgpd4q-nGDfD3uBZb8QxI-e5utOy1OHImfMBT0sx7x_gd8/pubchart?oid=1750708711&format=interactive"></iframe>
                             </div>
                         </div>
                     </div>
