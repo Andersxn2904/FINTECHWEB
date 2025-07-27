@@ -48,7 +48,11 @@
             padding: 0;
             width: 280px;
             flex-shrink: 0;
-            overflow-y: auto;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            overflow: hidden;
         }
 
         .sidebar-header {
@@ -116,6 +120,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            margin-left: 280px;
         }
 
         .top-bar {
@@ -397,17 +402,15 @@
         }
 
         @media (max-width: 1024px) {
-            .main-container {
-                flex-direction: column;
-            }
-            
             .sidebar {
+                position: relative;
                 width: 100%;
-                order: 1;
+                height: auto;
+                overflow-y: auto;
             }
             
             .content-area {
-                order: 2;
+                margin-left: 0;
             }
             
             .main-content {
@@ -440,6 +443,26 @@
             }
         }
 
+        .portfolio-section {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .portfolio-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            padding-left: 16px;
+            border-left: 3px solid var(--accent);
+        }
+
         .status-indicator {
             display: inline-block;
             width: 8px;
@@ -451,6 +474,379 @@
         .status-positive { background: var(--accent); }
         .status-negative { background: var(--danger); }
         .status-neutral { background: var(--warning); }
+
+        /* Floating Action Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: none;
+            color: var(--primary);
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 212, 170, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
+        }
+
+        .floating-btn.secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-btn.secondary:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+        }
+
+        /* Floating Calculator */
+        .calculator-overlay {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 400px;
+            max-width: calc(100vw - 48px);
+            height: calc(100vh - 48px);
+            min-width: 320px;
+            min-height: 500px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: none;
+            flex-direction: column;
+            z-index: 2000;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            resize: both;
+            overflow: hidden;
+        }
+
+        .calculator-overlay.active {
+            display: flex;
+            transform: translateX(0);
+        }
+
+        .calculator-overlay:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .calculator-resize-handle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(-45deg, transparent 40%, var(--border) 40%, var(--border) 50%, transparent 50%, transparent 60%, var(--border) 60%, var(--border) 70%, transparent 70%);
+            cursor: nw-resize;
+            border-radius: 0 0 12px 0;
+        }
+
+        .calculator-drag-handle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 40px;
+            height: 60px;
+            cursor: move;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .floating-calculator {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+            position: relative;
+        }
+
+        .calculator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .calculator-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .mode-toggle {
+            display: flex;
+            background: var(--primary);
+            border-radius: 6px;
+            padding: 2px;
+            margin: 0 12px;
+        }
+
+        .mode-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: var(--surface);
+            color: var(--text-primary);
+        }
+
+        .calculator-display {
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .calc-expression {
+            color: var(--text-secondary);
+            font-size: 14px;
+            min-height: 20px;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+        }
+
+        .calc-result {
+            color: var(--text-primary);
+            font-size: 24px;
+            font-weight: 600;
+            text-align: right;
+            word-wrap: break-word;
+        }
+
+        .calculator-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            flex-shrink: 0;
+            margin-bottom: 12px;
+        }
+
+        .calculator-buttons.advanced {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .calc-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: break-all;
+        }
+
+        .calc-btn:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+        }
+
+        .calc-btn.operator {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        .calc-btn.operator:hover {
+            background: var(--accent-hover);
+        }
+
+        .calc-btn.function {
+            background: #4a5568;
+            color: white;
+            font-size: 11px;
+        }
+
+        .calc-btn.function:hover {
+            background: #5a6578;
+        }
+
+        .calc-btn.clear {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .calc-btn.clear:hover {
+            background: #ff6b7a;
+        }
+
+        .calc-btn.wide {
+            grid-column: span 2;
+        }
+
+        .variables-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .variables-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .variable-input {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .variable-input input {
+            flex: 1;
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 6px 8px;
+            color: var(--text-primary);
+            font-size: 12px;
+        }
+
+        .variable-input button {
+            padding: 6px 12px;
+            background: var(--accent);
+            border: none;
+            border-radius: 4px;
+            color: var(--primary);
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .stored-variables {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .variable-chip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px 8px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 2px;
+            word-break: break-word;
+            max-width: 100%;
+        }
+
+        .variable-chip:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .history-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .history-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .history-item {
+            background: var(--primary);
+            border-radius: 4px;
+            padding: 8px;
+            margin-bottom: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            background: var(--surface);
+        }
+
+        .history-expression {
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .history-result {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -505,31 +901,68 @@
             <div class="main-content">
                 <!-- Dashboard Section -->
                 <section id="dashboard" class="page-section active">
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-value" id="totalReturn">--</div>
-                            <div class="metric-label">Total Return</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="annualizedROI">--</div>
-                            <div class="metric-label">Annualized ROI</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value" id="volatility">12.5%</div>
-                            <div class="metric-label">Volatility</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-value">
-                                <span class="status-indicator status-positive"></span>Active
+                    <!-- Worldly Section -->
+                    <div class="portfolio-section">
+                        <h2 class="section-title">Worldly</h2>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value" id="worldlyTotalReturn">--</div>
+                                <div class="metric-label">Total Return</div>
                             </div>
-                            <div class="metric-label">Portfolio Status</div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="worldlyAnnualizedROI">--</div>
+                                <div class="metric-label">Annualized ROI</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="worldlyVolatility">15.7%</div>
+                                <div class="metric-label">Volatility</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">
+                                    <span class="status-indicator status-positive"></span>Open
+                                </div>
+                                <div class="metric-label">Market Status</div>
+                            </div>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <h3 class="chart-title">Worldly Portfolio Performance</h3>
+                            <div class="chart-container">
+                                <iframe width="100%" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRMPS_1VP8AoRwKmvsic4jbximolB17nZTgpd4q-nGDfD3uBZb8QxI-e5utOy1OHImfMBT0sx7x_gd8/pubchart?oid=1750708711&format=interactive"></iframe>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="chart-wrapper">
-                        <h3 class="chart-title">Investment Performance Chart</h3>
-                        <div class="chart-container">
-                            <iframe width="100%" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRMPS_1VP8AoRwKmvsic4jbximolB17nZTgpd4q-nGDfD3uBZb8QxI-e5utOy1OHImfMBT0sx7x_gd8/pubchart?oid=1750708711&format=interactive"></iframe>
+                    <!-- Centralized Section -->
+                    <div class="portfolio-section">
+                        <h2 class="section-title">Centralized</h2>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value" id="centralizedTotalReturn">--</div>
+                                <div class="metric-label">Total Return</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="centralizedAnnualizedROI">--</div>
+                                <div class="metric-label">Annualized ROI</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="centralizedVolatility">8.2%</div>
+                                <div class="metric-label">Volatility</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="centralizedStatus">
+                                    <span class="status-indicator" id="centralizedStatusIndicator"></span>
+                                    <span id="centralizedStatusText">--</span>
+                                </div>
+                                <div class="metric-label">Market Status</div>
+                            </div>
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <h3 class="chart-title">Centralized Portfolio Performance</h3>
+                            <div class="chart-container">
+                                <iframe width="100%" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRMPS_1VP8AoRwKmvsic4jbximolB17nZTgpd4q-nGDfD3uBZb8QxI-e5utOy1OHImfMBT0sx7x_gd8/pubchart?oid=1750708711&format=interactive"></iframe>
+                            </div>
                         </div>
                     </div>
 
@@ -671,6 +1104,94 @@
         </main>
     </div>
 
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn secondary" onclick="openCalculator()" title="Calculator">
+            🧮
+        </button>
+        <button class="floating-btn" onclick="scrollToTop()" title="Back to Top">
+            ↑
+        </button>
+    </div>
+
+    <!-- Floating Calculator Overlay -->
+    <div class="calculator-overlay" id="calculatorOverlay">
+        <div class="calculator-drag-handle" id="dragHandle"></div>
+        <div class="floating-calculator">
+            <div class="calculator-header">
+                <h3 class="calculator-title">Advanced Calculator</h3>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="basicMode" onclick="switchMode('basic')">Basic</button>
+                    <button class="mode-btn" id="advancedMode" onclick="switchMode('advanced')">Advanced</button>
+                </div>
+                <button class="close-btn" onclick="closeCalculator()">×</button>
+            </div>
+            
+            <div class="calculator-display">
+                <div class="calc-expression" id="calcExpression"></div>
+                <div class="calc-result" id="calcResult">0</div>
+            </div>
+            
+            <div class="calculator-content">
+                <div class="calculator-buttons" id="calculatorButtons">
+                    <!-- Basic Mode Buttons -->
+                    <button class="calc-btn clear" onclick="clearAll()">C</button>
+                    <button class="calc-btn clear" onclick="clearEntry()">CE</button>
+                    <button class="calc-btn operator" onclick="deleteLast()">⌫</button>
+                    <button class="calc-btn function" onclick="inputFunction('(')">(</button>
+                    <button class="calc-btn function" onclick="inputFunction(')')">)</button>
+                    
+                    <button class="calc-btn function" onclick="inputFunction('sqrt(')" title="Square Root">√</button>
+                    <button class="calc-btn function" onclick="inputFunction('pow(')" title="Power">x^y</button>
+                    <button class="calc-btn function" onclick="inputFunction('log(')" title="Logarithm">log</button>
+                    <button class="calc-btn function" onclick="inputFunction('ln(')" title="Natural Log">ln</button>
+                    <button class="calc-btn operator" onclick="inputOperator('/')">/</button>
+                    
+                    <button class="calc-btn" onclick="inputNumber('7')">7</button>
+                    <button class="calc-btn" onclick="inputNumber('8')">8</button>
+                    <button class="calc-btn" onclick="inputNumber('9')">9</button>
+                    <button class="calc-btn operator" onclick="inputOperator('*')">×</button>
+                    <button class="calc-btn function" onclick="inputFunction('!')" title="Factorial">!</button>
+                    
+                    <button class="calc-btn" onclick="inputNumber('4')">4</button>
+                    <button class="calc-btn" onclick="inputNumber('5')">5</button>
+                    <button class="calc-btn" onclick="inputNumber('6')">6</button>
+                    <button class="calc-btn operator" onclick="inputOperator('-')">-</button>
+                    <button class="calc-btn function" onclick="inputFunction('%')" title="Modulo">%</button>
+                    
+                    <button class="calc-btn" onclick="inputNumber('1')">1</button>
+                    <button class="calc-btn" onclick="inputNumber('2')">2</button>
+                    <button class="calc-btn" onclick="inputNumber('3')">3</button>
+                    <button class="calc-btn operator" onclick="inputOperator('+')">+</button>
+                    <button class="calc-btn function" onclick="inputConstant('pi')" title="Pi">π</button>
+                    
+                    <button class="calc-btn wide" onclick="inputNumber('0')">0</button>
+                    <button class="calc-btn" onclick="inputNumber('.')">.</button>
+                    <button class="calc-btn operator" onclick="calculate()">=</button>
+                    <button class="calc-btn function" onclick="inputConstant('e')" title="Euler's number">e</button>
+                </div>
+
+                <!-- Variables Section -->
+                <div class="variables-section" id="variablesSection" style="display: none;">
+                    <div class="variables-title">Variables</div>
+                    <div class="variable-input">
+                        <input type="text" id="variableName" placeholder="Variable name (x, rate, price...)" maxlength="15">
+                        <input type="text" id="variableValue" placeholder="Value">
+                        <button onclick="storeVariable()">Store</button>
+                    </div>
+                    <div class="stored-variables" id="storedVariables"></div>
+                </div>
+
+                <!-- History Section -->
+                <div class="history-section">
+                    <div class="history-title">History</div>
+                    <div id="calculationHistory"></div>
+                </div>
+            </div>
+        </div>
+        <div class="calculator-resize-handle" id="resizeHandle"></div>
+    </div>
+
     <script>
         const pageTitles = {
             'dashboard': 'Performance Dashboard',
@@ -731,6 +1252,23 @@
             `;
         }
 
+        function updateCentralizedMarketStatus() {
+            const now = new Date();
+            const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+            const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5; // Monday to Friday
+            
+            const statusIndicator = document.getElementById('centralizedStatusIndicator');
+            const statusText = document.getElementById('centralizedStatusText');
+            
+            if (isWeekday) {
+                statusIndicator.className = 'status-indicator status-positive';
+                statusText.textContent = 'Active';
+            } else {
+                statusIndicator.className = 'status-indicator status-negative';
+                statusText.textContent = 'Closed Market';
+            }
+        }
+
         function calculateQuickROI() {
             const initial = parseFloat(document.getElementById('quickInitial').value) || 0;
             const current = parseFloat(document.getElementById('quickCurrent').value) || 0;
@@ -751,10 +1289,415 @@
 
             document.getElementById('quickResult').innerHTML = createResultPanel('ROI Analysis Results', resultItems);
 
-            // Update dashboard metrics
-            document.getElementById('totalReturn').textContent = formatPercentage(totalReturn);
-            document.getElementById('annualizedROI').textContent = formatPercentage(annualizedReturn);
+            // Update dashboard metrics for both sections
+            // Worldly (original values with higher volatility - always open)
+            document.getElementById('worldlyTotalReturn').textContent = formatPercentage(totalReturn);
+            document.getElementById('worldlyAnnualizedROI').textContent = formatPercentage(annualizedReturn);
+
+            // Centralized (assuming slightly better performance - status depends on weekday)
+            const centralizedMultiplier = 0.85; // 15% lower volatility
+            document.getElementById('centralizedTotalReturn').textContent = formatPercentage(totalReturn * centralizedMultiplier);
+            document.getElementById('centralizedAnnualizedROI').textContent = formatPercentage(annualizedReturn * centralizedMultiplier);
         }
+
+        // Initialize market status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCentralizedMarketStatus();
+            
+            // Update market status every minute
+            setInterval(updateCentralizedMarketStatus, 60000);
+        });
+
+        // Floating Action Buttons Functions
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function openCalculator() {
+            document.getElementById('calculatorOverlay').classList.add('active');
+            initializeDragAndResize();
+        }
+
+        function closeCalculator() {
+            document.getElementById('calculatorOverlay').classList.remove('active');
+        }
+
+        // Drag and Resize Functionality
+        function initializeDragAndResize() {
+            const calculator = document.getElementById('calculatorOverlay');
+            const dragHandle = document.getElementById('dragHandle');
+            const resizeHandle = document.getElementById('resizeHandle');
+            
+            let isDragging = false;
+            let isResizing = false;
+            let dragStartX, dragStartY, initialX, initialY;
+            let resizeStartX, resizeStartY, initialWidth, initialHeight;
+
+            // Drag functionality
+            dragHandle.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                
+                const rect = calculator.getBoundingClientRect();
+                initialX = rect.left;
+                initialY = rect.top;
+                
+                calculator.style.transition = 'none';
+                e.preventDefault();
+            });
+
+            // Resize functionality
+            resizeHandle.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                resizeStartX = e.clientX;
+                resizeStartY = e.clientY;
+                
+                const rect = calculator.getBoundingClientRect();
+                initialWidth = rect.width;
+                initialHeight = rect.height;
+                
+                calculator.style.transition = 'none';
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaX = e.clientX - dragStartX;
+                    const deltaY = e.clientY - dragStartY;
+                    
+                    const newX = initialX + deltaX;
+                    const newY = initialY + deltaY;
+                    
+                    // Keep calculator within viewport bounds
+                    const maxX = window.innerWidth - calculator.offsetWidth;
+                    const maxY = window.innerHeight - calculator.offsetHeight;
+                    
+                    calculator.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
+                    calculator.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+                    calculator.style.right = 'auto';
+                }
+                
+                if (isResizing) {
+                    const deltaX = e.clientX - resizeStartX;
+                    const deltaY = e.clientY - resizeStartY;
+                    
+                    const newWidth = Math.max(320, initialWidth + deltaX);
+                    const newHeight = Math.max(500, initialHeight + deltaY);
+                    
+                    // Keep within viewport bounds
+                    const maxWidth = window.innerWidth - calculator.offsetLeft;
+                    const maxHeight = window.innerHeight - calculator.offsetTop;
+                    
+                    calculator.style.width = Math.min(newWidth, maxWidth) + 'px';
+                    calculator.style.height = Math.min(newHeight, maxHeight) + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging || isResizing) {
+                    calculator.style.transition = 'transform 0.3s ease';
+                    isDragging = false;
+                    isResizing = false;
+                }
+            });
+
+            // Double-click to reset position and size
+            dragHandle.addEventListener('dblclick', () => {
+                calculator.style.left = 'auto';
+                calculator.style.top = '24px';
+                calculator.style.right = '24px';
+                calculator.style.width = '400px';
+                calculator.style.height = 'calc(100vh - 48px)';
+            });
+        }
+
+        // Advanced Calculator Functions
+        let currentExpression = '';
+        let calculationHistory = [];
+        let variables = {};
+        let currentMode = 'basic';
+
+        function updateDisplay() {
+            document.getElementById('calcExpression').textContent = currentExpression;
+            try {
+                if (currentExpression) {
+                    const result = evaluateExpression(currentExpression);
+                    document.getElementById('calcResult').textContent = result;
+                } else {
+                    document.getElementById('calcResult').textContent = '0';
+                }
+            } catch (e) {
+                document.getElementById('calcResult').textContent = 'Error';
+            }
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.getElementById('basicMode').classList.toggle('active', mode === 'basic');
+            document.getElementById('advancedMode').classList.toggle('active', mode === 'advanced');
+            document.getElementById('variablesSection').style.display = mode === 'advanced' ? 'block' : 'none';
+            
+            const buttonsContainer = document.getElementById('calculatorButtons');
+            if (mode === 'advanced') {
+                buttonsContainer.classList.add('advanced');
+                addAdvancedButtons();
+            } else {
+                buttonsContainer.classList.remove('advanced');
+                removeAdvancedButtons();
+            }
+        }
+
+        function addAdvancedButtons() {
+            const buttonsContainer = document.getElementById('calculatorButtons');
+            
+            // Remove existing advanced buttons if any
+            removeAdvancedButtons();
+            
+            // Create a container for trigonometric functions
+            const trigButtons = document.createElement('div');
+            trigButtons.className = 'trig-functions';
+            trigButtons.style.cssText = `
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+                margin-bottom: 12px;
+                padding-top: 12px;
+                border-top: 1px solid var(--border);
+            `;
+            
+            const trigFunctions = [
+                { func: 'sin(', label: 'sin', title: 'Sine' },
+                { func: 'cos(', label: 'cos', title: 'Cosine' },
+                { func: 'tan(', label: 'tan', title: 'Tangent' },
+                { func: 'asin(', label: 'asin', title: 'Arcsine' },
+                { func: 'acos(', label: 'acos', title: 'Arccosine' },
+                { func: 'atan(', label: 'atan', title: 'Arctangent' }
+            ];
+            
+            trigFunctions.forEach(item => {
+                const button = document.createElement('button');
+                button.className = 'calc-btn function';
+                button.textContent = item.label;
+                button.title = item.title;
+                button.onclick = () => inputFunction(item.func);
+                trigButtons.appendChild(button);
+            });
+            
+            buttonsContainer.appendChild(trigButtons);
+        }
+
+        function removeAdvancedButtons() {
+            const trigButtons = document.querySelector('.trig-functions');
+            if (trigButtons) {
+                trigButtons.remove();
+            }
+        }
+
+        function inputNumber(num) {
+            currentExpression += num;
+            updateDisplay();
+        }
+
+        function inputOperator(op) {
+            if (op === '*') op = '*';
+            currentExpression += op;
+            updateDisplay();
+        }
+
+        function inputFunction(func) {
+            currentExpression += func;
+            updateDisplay();
+        }
+
+        function inputConstant(constant) {
+            const constants = {
+                'pi': Math.PI,
+                'e': Math.E
+            };
+            currentExpression += constants[constant];
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            currentExpression = currentExpression.slice(0, -1);
+            updateDisplay();
+        }
+
+        function clearEntry() {
+            currentExpression = '';
+            updateDisplay();
+        }
+
+        function clearAll() {
+            currentExpression = '';
+            updateDisplay();
+        }
+
+        function calculate() {
+            if (!currentExpression) return;
+            
+            try {
+                const result = evaluateExpression(currentExpression);
+                
+                // Add to history
+                calculationHistory.unshift({
+                    expression: currentExpression,
+                    result: result
+                });
+                
+                if (calculationHistory.length > 10) {
+                    calculationHistory = calculationHistory.slice(0, 10);
+                }
+                
+                updateHistory();
+                
+                currentExpression = result.toString();
+                updateDisplay();
+                
+            } catch (error) {
+                document.getElementById('calcResult').textContent = 'Error';
+            }
+        }
+
+        function evaluateExpression(expr) {
+            // Replace mathematical functions
+            let processedExpr = expr
+                .replace(/sqrt\(/g, 'Math.sqrt(')
+                .replace(/pow\(/g, 'Math.pow(')
+                .replace(/log\(/g, 'Math.log10(')
+                .replace(/ln\(/g, 'Math.log(')
+                .replace(/sin\(/g, 'Math.sin(')
+                .replace(/cos\(/g, 'Math.cos(')
+                .replace(/tan\(/g, 'Math.tan(')
+                .replace(/asin\(/g, 'Math.asin(')
+                .replace(/acos\(/g, 'Math.acos(')
+                .replace(/atan\(/g, 'Math.atan(')
+                .replace(/!/g, '/* factorial */');
+
+            // Replace variables (improved to handle word variables)
+            Object.keys(variables).sort((a, b) => b.length - a.length).forEach(variable => {
+                const regex = new RegExp(`\\b${variable}\\b`, 'g');
+                processedExpr = processedExpr.replace(regex, variables[variable]);
+            });
+
+            // Handle factorial
+            processedExpr = processedExpr.replace(/(\d+)\/\* factorial \*\//g, (match, num) => {
+                return factorial(parseInt(num));
+            });
+
+            // Evaluate the expression
+            return Function('"use strict"; return (' + processedExpr + ')')();
+        }
+
+        function factorial(n) {
+            if (n < 0) return NaN;
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        function storeVariable() {
+            const name = document.getElementById('variableName').value.trim();
+            const value = document.getElementById('variableValue').value.trim();
+            
+            if (name && value && /^[a-zA-Z][a-zA-Z0-9_]*$/.test(name)) {
+                try {
+                    variables[name] = parseFloat(value) || evaluateExpression(value);
+                    document.getElementById('variableName').value = '';
+                    document.getElementById('variableValue').value = '';
+                    updateVariablesDisplay();
+                } catch (e) {
+                    alert('Invalid value');
+                }
+            } else {
+                alert('Variable name must start with a letter and contain only letters, numbers, and underscores');
+            }
+        }
+
+        function updateVariablesDisplay() {
+            const container = document.getElementById('storedVariables');
+            container.innerHTML = '';
+            
+            Object.keys(variables).forEach(variable => {
+                const chip = document.createElement('div');
+                chip.className = 'variable-chip';
+                chip.innerHTML = `
+                    <div style="font-weight: 600; color: var(--accent);">${variable}</div>
+                    <div style="font-size: 10px;">= ${variables[variable]}</div>
+                `;
+                chip.onclick = () => {
+                    currentExpression += variable;
+                    updateDisplay();
+                };
+                
+                // Add delete functionality with right-click
+                chip.oncontextmenu = (e) => {
+                    e.preventDefault();
+                    if (confirm(`Delete variable "${variable}"?`)) {
+                        delete variables[variable];
+                        updateVariablesDisplay();
+                    }
+                };
+                
+                container.appendChild(chip);
+            });
+        }
+
+        function updateHistory() {
+            const container = document.getElementById('calculationHistory');
+            container.innerHTML = '';
+            
+            calculationHistory.forEach(item => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-expression">${item.expression}</div>
+                    <div class="history-result">= ${item.result}</div>
+                `;
+                historyItem.onclick = () => {
+                    currentExpression = item.expression;
+                    updateDisplay();
+                };
+                container.appendChild(historyItem);
+            });
+        }
+
+        // Enhanced keyboard support
+        document.addEventListener('keydown', function(event) {
+            const calcOverlay = document.getElementById('calculatorOverlay');
+            if (!calcOverlay.classList.contains('active')) return;
+
+            const key = event.key;
+            
+            if (key >= '0' && key <= '9' || key === '.') {
+                inputNumber(key);
+            } else if (key === '+' || key === '-') {
+                inputOperator(key);
+            } else if (key === '*') {
+                inputOperator('*');
+            } else if (key === '/') {
+                event.preventDefault();
+                inputOperator('/');
+            } else if (key === '(' || key === ')') {
+                inputFunction(key);
+            } else if (key === 'Enter' || key === '=') {
+                event.preventDefault();
+                calculate();
+            } else if (key === 'Escape') {
+                closeCalculator();
+            } else if (key === 'Backspace') {
+                deleteLast();
+            } else if (key === 'Delete') {
+                clearEntry();
+            }
+        });
 
         function calculateCompound() {
             const principal = parseFloat(document.getElementById('principal').value) || 0;
