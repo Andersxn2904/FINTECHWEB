@@ -401,16 +401,36 @@
             font-weight: 500;
         }
 
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 240px;
+            }
+            
+            .content-area {
+                margin-left: 240px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
             .sidebar {
                 position: relative;
                 width: 100%;
                 height: auto;
                 overflow-y: auto;
+                order: 1;
             }
             
             .content-area {
                 margin-left: 0;
+                order: 2;
             }
             
             .main-content {
@@ -425,21 +445,347 @@
                 width: 100%;
                 height: 300px;
             }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            
+            .portfolio-section {
+                margin-bottom: 32px;
+            }
+            
+            /* Calculator responsive adjustments */
+            .calculator-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                border-radius: 0;
+                transform: translateY(100%);
+            }
+            
+            .calculator-overlay.active {
+                transform: translateY(0);
+            }
+            
+            .floating-calculator {
+                padding: 16px;
+            }
+            
+            .calculator-drag-handle {
+                display: none;
+            }
+            
+            .calculator-resize-handle {
+                display: none;
+            }
+            
+            .calculator-buttons {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+            
+            .calc-btn {
+                min-height: 48px;
+                font-size: 14px;
+                padding: 8px 4px;
+            }
+            
+            .calculator-display {
+                padding: 20px 16px;
+            }
+            
+            .calc-result {
+                font-size: 28px;
+            }
         }
 
         @media (max-width: 768px) {
             .top-bar {
                 padding: 12px 20px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            
+            .page-title {
+                font-size: 18px;
             }
             
             .export-controls {
-                flex-direction: column;
-                gap: 8px;
+                align-self: stretch;
+                justify-content: center;
             }
             
             .metrics-grid {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .metric-card {
+                padding: 16px;
+            }
+            
+            .metric-value {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+                margin-bottom: 16px;
+            }
+            
+            .chart-wrapper {
+                padding: 16px;
+            }
+            
+            .chart-title {
+                font-size: 14px;
+            }
+            
+            .calculator-section {
+                padding: 20px;
+            }
+            
+            .calculator-title {
+                font-size: 16px;
+            }
+            
+            .form-grid {
                 gap: 16px;
+            }
+            
+            .input-field {
+                padding: 10px 12px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            /* Calculator mobile optimizations */
+            .floating-calculator {
+                padding: 12px;
+            }
+            
+            .calculator-header {
+                margin-bottom: 12px;
+            }
+            
+            .calculator-title {
+                font-size: 16px;
+            }
+            
+            .mode-toggle {
+                margin: 0 8px;
+            }
+            
+            .mode-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+            
+            .calculator-buttons {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+            }
+            
+            .calc-btn {
+                min-height: 44px;
+                font-size: 13px;
+                padding: 6px 4px;
+            }
+            
+            .calc-btn.wide {
+                grid-column: span 2;
+            }
+            
+            .trig-functions {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 6px !important;
+            }
+            
+            .variables-section {
+                margin-top: 8px;
+                padding-top: 8px;
+            }
+            
+            .variable-input {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .variable-input input {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            .variable-input button {
+                padding: 8px 16px;
+                align-self: flex-start;
+            }
+            
+            .stored-variables {
+                gap: 6px;
+            }
+            
+            .variable-chip {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+            
+            .history-section {
+                margin-top: 8px;
+                padding-top: 8px;
+            }
+            
+            .history-item {
+                padding: 6px;
+                font-size: 11px;
+            }
+            
+            /* Floating buttons responsive */
+            .floating-buttons {
+                bottom: 16px;
+                right: 16px;
+                gap: 8px;
+            }
+            
+            .floating-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 12px;
+            }
+            
+            .portfolio-section {
+                margin-bottom: 24px;
+                padding-bottom: 24px;
+            }
+            
+            .section-title {
+                font-size: 18px;
+                margin-bottom: 12px;
+                padding-left: 12px;
+            }
+            
+            .chart-wrapper {
+                padding: 12px;
+            }
+            
+            .chart-container iframe {
+                height: 250px;
+            }
+            
+            .calculator-section {
+                padding: 16px;
+            }
+            
+            .form-grid {
+                gap: 12px;
+            }
+            
+            .input-group {
+                margin-bottom: 12px;
+            }
+            
+            .calculate-btn {
+                padding: 14px 24px;
+                font-size: 16px;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .result-item {
+                padding: 12px;
+            }
+            
+            .result-value {
+                font-size: 18px;
+            }
+            
+            /* Calculator ultra-mobile */
+            .calculator-buttons {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 4px;
+            }
+            
+            .calc-btn {
+                min-height: 40px;
+                font-size: 12px;
+                padding: 4px 2px;
+            }
+            
+            .calculator-display {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .calc-result {
+                font-size: 24px;
+            }
+            
+            .calc-expression {
+                font-size: 12px;
+            }
+            
+            .trig-functions {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 4px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .floating-buttons {
+                bottom: 12px;
+                right: 12px;
+            }
+            
+            .floating-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .main-content {
+                padding: 8px;
+            }
+            
+            .metric-card {
+                padding: 12px;
+            }
+            
+            .metric-value {
+                font-size: 20px;
+            }
+            
+            .chart-container iframe {
+                height: 200px;
+            }
+            
+            .calculator-buttons {
+                gap: 3px;
+            }
+            
+            .calc-btn {
+                min-height: 36px;
+                font-size: 11px;
+                padding: 2px 1px;
+            }
+            
+            .trig-functions {
+                gap: 3px !important;
             }
         }
 
@@ -1330,6 +1676,11 @@
             const calculator = document.getElementById('calculatorOverlay');
             const dragHandle = document.getElementById('dragHandle');
             const resizeHandle = document.getElementById('resizeHandle');
+            
+            // Skip drag/resize on mobile devices
+            if (window.innerWidth <= 1024) {
+                return;
+            }
             
             let isDragging = false;
             let isResizing = false;
